@@ -1,5 +1,6 @@
 import User from '@models/user';
 import { connectToDatabase } from '@utils/database';
+import { formatUsername } from '@utils/generalUtilities';
 import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
 
@@ -10,31 +11,33 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_SECRET,
     }),
   ],
-  async session({ session }) {
-    const sessionUser = await User.findOne({ email: session.user.email });
+  callbacks: {
+    async session({ session }) {
+      const sessionUser = await User.findOne({ email: session.user.email });
 
-    sessionUser.user.id = sessionUser._id.toString();
+      session.user.id = sessionUser._id.toString();
+      return session;
+    },
+    async signIn({ profile }) {
+      try {
+        connectToDatabase();
+        // check if user exists in database
+        const userExists = await User.findOne({ email: profile.email });
 
-    return session;
-  },
-  async signIn({ profile }) {
-    try {
-      connectToDatabase();
-      // check if user exists in database
-      const userExists = await User.findOne({ email: profile.email });
-      // if not, create user in database
-      if (!userExists) {
-        await User.create({
-          email: profile.email,
-          username: profile.name.replace(' ', '').toLowerCase(),
-          image: profile.picture,
-        });
+        // if not, create user in database
+        if (!userExists) {
+          await User.create({
+            email: profile.email,
+            username: formatUsername(profile.name),
+            image: profile.picture,
+          });
+        }
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
       }
-      return true;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
+    },
   },
 });
 
