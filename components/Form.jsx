@@ -134,15 +134,20 @@ const Form = ({
               </button>
               <div className="tag-list sm:flex hidden">
                 {error && <p className="text-red-500 text-sm">{error}</p>}
-                {post.tags.map((tag) => (
-                  <button className="tag" onClick={() => handleDeleteTag(tag)}>
-                    #{tag}
-                  </button>
-                ))}
+                {post &&
+                  post.tags &&
+                  post.tags.map((tag) => (
+                    <button
+                      className="tag"
+                      onClick={() => handleDeleteTag(tag)}
+                    >
+                      #{tag}
+                    </button>
+                  ))}
               </div>
             </div>
           </label>
-          {filteredTags.length > 0 && (
+          {filteredTags && filteredTags.length > 0 && (
             <div className="tag-search">
               {filteredTags.map((tag) => (
                 <button
@@ -164,11 +169,13 @@ const Form = ({
         </div>
         <div className="tag-list sm:hidden flex">
           {error && <p className="text-red-500 text-sm">{error}</p>}
-          {post.tags.map((tag) => (
-            <button className="tag" onClick={() => handleDeleteTag(tag)}>
-              #{tag}
-            </button>
-          ))}
+          {post &&
+            post.tags &&
+            post.tags.map((tag) => (
+              <button className="tag" onClick={() => handleDeleteTag(tag)}>
+                #{tag}
+              </button>
+            ))}
         </div>
         <div className="flex-end mx-3 mb-5 gap-4">
           <Link href="/" className="text-gray-500 text-sm">
