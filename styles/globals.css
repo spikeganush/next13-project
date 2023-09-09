@@ -135,6 +135,10 @@
   @apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
 }
 
+.form_tag {
+  @apply w-36 flex rounded-lg mt-2 p-3 text-sm text-gray-500 border border-black;
+}
+
 /* Nav Component */
 .logo_text {
   @apply max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide;
@@ -167,4 +171,20 @@
 
 .flex-between {
   @apply flex justify-between items-center;
+}
+
+.tag-list {
+  @apply flex-wrap gap-2 mt-2 ml-2 items-center;
+}
+
+.tag {
+  @apply rounded-xl bg-sky-600 text-white font-bold text-sm px-3 py-1 flex justify-center items-center;
+}
+
+.tag-search {
+  @apply w-36 flex flex-col bg-white  px-3 py-1 max-h-28 overflow-y-auto;
+}
+
+.tag-search > button {
+  @apply text-left py-1;
 }
