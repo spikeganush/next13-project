@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 
-const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
+const PostCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
@@ -13,21 +13,19 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
   const [copied, setCopied] = useState('');
 
   const handleProfileClick = () => {
-    console.log(post);
-
     if (post.creator._id === session?.user.id) return router.push('/profile');
 
     router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
   };
 
   const handleCopy = () => {
-    setCopied(post.prompt);
-    navigator.clipboard.writeText(post.prompt);
+    setCopied(post.post);
+    navigator.clipboard.writeText(post.post);
     setTimeout(() => setCopied(false), 3000);
   };
 
   return (
-    <div className="prompt_card">
+    <div className="post_card">
       <div className="flex justify-between items-start gap-5">
         <div
           className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
@@ -54,17 +52,17 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
         <div className="copy_btn" onClick={handleCopy}>
           <Image
             src={
-              copied === post.prompt
+              copied === post.post
                 ? '/assets/icons/tick.svg'
                 : '/assets/icons/copy.svg'
             }
-            alt={copied === post.prompt ? 'tick_icon' : 'copy_icon'}
+            alt={copied === post.post ? 'tick_icon' : 'copy_icon'}
             width={12}
             height={12}
           />
         </div>
       </div>
-      <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
+      <p className="my-4 font-satoshi text-sm text-gray-700">{post.post}</p>
       <div className="flex gap-2 flex-wrap">
         {post.tags.map((tag, index) => (
           <p
@@ -96,4 +94,4 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
   );
 };
 
-export default PromptCard;
+export default PostCard;

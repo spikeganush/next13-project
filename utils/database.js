@@ -10,7 +10,7 @@ export const connectToDatabase = async () => {
   }
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
-      dbName: 'prompt2000',
+      dbName: 'post2000',
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

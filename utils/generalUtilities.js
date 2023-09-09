@@ -20,7 +20,7 @@ export function formatUsername(username) {
 
 export function formatTag(tag) {
   let formattedTag = tag;
-  //remove the # from the tag
+  // remove the # from the tag
   formattedTag = formattedTag.replace('#', '');
   // replace spaces with dashes
   formattedTag = formattedTag.replace(/\s+/g, '-');

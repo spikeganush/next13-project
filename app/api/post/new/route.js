@@ -1,14 +1,14 @@
-import Prompt from '@models/prompt';
+import Post from '@models/post';
 import Tag from '@models/tag';
 import { connectToDatabase } from '@utils/database';
 
 export const POST = async (request) => {
-  const { userId, prompt, tags } = await request.json();
+  const { userId, post, tags } = await request.json();
 
   try {
     await connectToDatabase();
-    const newPrompt = new Prompt({ creator: userId, prompt, tags });
-    await newPrompt.save();
+    const newPost = new Post({ creator: userId, post, tags });
+    await newPost.save();
 
     tags.forEach(async (tag) => {
       const tagExists = await Tag.findOne({ name: tag });
@@ -18,8 +18,8 @@ export const POST = async (request) => {
         await newTag.save();
       }
     });
-    return new Response(JSON.stringify(newPrompt), { status: 201 });
+    return new Response(JSON.stringify(newPost), { status: 201 });
   } catch (error) {
-    return new Response('Failed to create a new prompt', { status: 500 });
+    return new Response('Failed to create a new post', { status: 500 });
   }
 };

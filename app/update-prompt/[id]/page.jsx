@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 
 import Form from '@components/Form';
 
-const UpdatePrompt = ({ params }) => {
+const UpdatePost = ({ params }) => {
   const router = useRouter();
-  const promptId = params?.id;
+  const postId = params?.id;
 
-  const [post, setPost] = useState({ prompt: '', tags: '' });
+  const [post, setPost] = useState({ post: '', tags: '' });
   const [tags, setTags] = useState([]);
   const [filteredTags, setFilteredTags] = useState([]);
   const [submitting, setIsSubmitting] = useState(false);
@@ -22,30 +22,30 @@ const UpdatePrompt = ({ params }) => {
       setTags(formatTag);
     };
     getTags();
-    const getPromptDetails = async () => {
-      const response = await fetch(`/api/prompt/${promptId}`);
+    const getPostDetails = async () => {
+      const response = await fetch(`/api/post/${postId}`);
       const data = await response.json();
 
       setPost({
-        prompt: data.prompt,
+        post: data.post,
         tags: data.tags,
       });
     };
 
-    if (promptId) getPromptDetails();
-  }, [promptId]);
+    if (postId) getPostDetails();
+  }, [postId]);
 
-  const updatePrompt = async (e) => {
+  const updatePost = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (!promptId) return alert('Missing PromptId!');
+    if (!postId) return alert('Missing PostId!');
 
     try {
-      const response = await fetch(`/api/prompt/${promptId}`, {
+      const response = await fetch(`/api/post/${postId}`, {
         method: 'PATCH',
         body: JSON.stringify({
-          prompt: post.prompt,
+          post: post.post,
           tags: post.tags,
         }),
       });
@@ -69,9 +69,9 @@ const UpdatePrompt = ({ params }) => {
       post={post}
       setPost={setPost}
       submitting={submitting}
-      handleSubmit={updatePrompt}
+      handleSubmit={updatePost}
     />
   );
 };
 
-export default UpdatePrompt;
+export default UpdatePost;

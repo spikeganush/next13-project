@@ -3,14 +3,14 @@ import Provider from '@components/Provider';
 import '@styles/globals.css';
 
 export const metadata = {
-  title: 'react13-project',
-  description: 'A React 13 project',
+  title: 'Post 2000',
+  description: 'Quick your ideas in a post with a hashtag research',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body suppressHydrationWarning={true}>
         <Provider>
           <div className="main">
             <div className="gradient" />

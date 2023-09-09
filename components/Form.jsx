@@ -19,11 +19,10 @@ const Form = ({
   };
 
   const handleTagChange = (e) => {
-    console.log(e);
     if (e.target.value === '') return;
     const tag = formatTag(e.target.value);
     // check if the tag already exists
-    if (post.tags.includes(tag)) {
+    if (post.tags.includes(capitalizeFirstLetter(tag))) {
       document.querySelector('.form_tag').value = '';
       setError('Tag already exists');
       setTimeout(() => {
@@ -71,8 +70,8 @@ const Form = ({
         <span className="blue_gradient">{type} Post</span>
       </h1>
       <p className="desc text-left max-w-md">
-        {type} and share amazing prompts with the world, and let your
-        imagination run wild with any AI-powered platform
+        {type} and share amazing posts with the world, and let your imagination
+        run wild.
       </p>
       <form
         onSubmit={handleSubmit}
@@ -80,12 +79,12 @@ const Form = ({
       >
         <label>
           <span className="font-satoshi font-semibold text-base text-gray-700">
-            Your AI prompt
+            Your IDEA post
           </span>
           <textarea
-            value={post.prompt}
-            onChange={(e) => setPost({ ...post, prompt: e.target.value })}
-            placeholder="Write your prompt here"
+            value={post.post}
+            onChange={(e) => setPost({ ...post, post: e.target.value })}
+            placeholder="Write your post here"
             required
             className="form_textarea"
           />
@@ -114,6 +113,7 @@ const Form = ({
                 />
               </div>
               <button
+                type="button"
                 onClick={() => {
                   const mockEvent = {
                     target: {
@@ -138,6 +138,7 @@ const Form = ({
                   post.tags &&
                   post.tags.map((tag) => (
                     <button
+                      type="button"
                       className="tag"
                       onClick={() => handleDeleteTag(tag)}
                     >
@@ -151,6 +152,7 @@ const Form = ({
             <div className="tag-search">
               {filteredTags.map((tag) => (
                 <button
+                  type="button"
                   onClick={() => {
                     const mockEvent = {
                       target: {

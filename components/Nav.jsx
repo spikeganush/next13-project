@@ -24,18 +24,18 @@ const Nav = () => {
         <Image
           src="/assets/images/logo.svg"
           alt="logo"
-          width={30}
+          width={28}
           height={30}
           className="object-contain"
         />
-        <p className="logo_text">Promp 2000</p>
+        <p className="logo_text">Post 2000</p>
       </Link>
 
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
-            <Link href="/create-prompt" className="black_btn">
+            <Link href="/create-post" className="black_btn">
               Create Post
             </Link>
 
@@ -95,11 +95,11 @@ const Nav = () => {
                   My Profile
                 </Link>
                 <Link
-                  href="/create-prompt"
+                  href="/create-post"
                   className="dropdown_link"
                   onClick={() => setToggleDropdown(false)}
                 >
-                  Create Prompt
+                  Create Post
                 </Link>
                 <button
                   type="button"

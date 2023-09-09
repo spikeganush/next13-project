@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Form from '@components/Form';
-const CreatePrompt = () => {
+const CreatePost = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [post, setPost] = useState({
-    prompt: '',
+    post: '',
     tags: [],
   });
   const [tags, setTags] = useState([]);
@@ -25,7 +25,7 @@ const CreatePrompt = () => {
     getTags();
   }, []);
 
-  const createPrompt = async (e) => {
+  const createPost = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     try {
@@ -37,10 +37,10 @@ const CreatePrompt = () => {
         setSubmitting(false);
         return;
       }
-      const response = await fetch('/api/prompt/new', {
+      const response = await fetch('/api/post/new', {
         method: 'POST',
         body: JSON.stringify({
-          prompt: post.prompt,
+          post: post.post,
           tags: post.tags,
           userId: session?.user.id,
         }),
@@ -65,9 +65,9 @@ const CreatePrompt = () => {
       error={error}
       setError={setError}
       submitting={submitting}
-      handleSubmit={createPrompt}
+      handleSubmit={createPost}
     />
   );
 };
 
-export default CreatePrompt;
+export default CreatePost;
