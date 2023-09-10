@@ -5,7 +5,7 @@ export const GET = async () => {
   try {
     await connectToDatabase;
 
-    const posts = await Post.find().populate('creator');
+    const posts = await Post.find({}).populate('creator');
 
     return new Response(JSON.stringify(posts), { status: 200 });
   } catch (error) {
