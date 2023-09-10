@@ -14,28 +14,6 @@ const nextConfig = {
     };
     return config;
   },
-  async headers() {
-    return [
-      {
-        source: '/api/tags',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'no-store, max-age=0',
-          },
-        ],
-      },
-      {
-        source: '/api/post',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'no-store, max-age=0',
-          },
-        ],
-      },
-    ];
-  },
 };
 
 module.exports = nextConfig;

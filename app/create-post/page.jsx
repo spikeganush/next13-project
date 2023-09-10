@@ -17,7 +17,11 @@ const CreatePost = () => {
 
   useEffect(() => {
     const getTags = async () => {
-      const res = await fetch('/api/tags');
+      const res = await fetch('/api/tags', {
+        next: {
+          cache: 'no-store',
+        },
+      });
       const tags = await res.json();
       const formatTag = tags.map((tag) => tag.name);
       setTags(formatTag);
