@@ -3,7 +3,7 @@ import { connectToDatabase } from '@utils/database';
 
 export const GET = async () => {
   try {
-    await connectToDatabase;
+    await connectToDatabase();
 
     const posts = await Post.find({}).populate('creator');
 

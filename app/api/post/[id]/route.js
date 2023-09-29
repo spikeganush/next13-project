@@ -4,7 +4,7 @@ import { connectToDatabase } from '@utils/database';
 
 export const GET = async (request, { params }) => {
   try {
-    await connectToDatabase;
+    await connectToDatabase();
 
     const post = await Post.findById(params.id).populate('creator');
 
@@ -20,7 +20,7 @@ export const GET = async (request, { params }) => {
 export const PATCH = async (request, { params }) => {
   const { post, tags } = await request.json();
   try {
-    await connectToDatabase;
+    await connectToDatabase();
 
     const existingPost = await Post.findById(params.id);
 
@@ -37,7 +37,7 @@ export const PATCH = async (request, { params }) => {
 
 export const DELETE = async (request, { params }) => {
   try {
-    await connectToDatabase;
+    await connectToDatabase();
 
     const post = await Post.findById(params.id);
     const posts = await Post.find();
